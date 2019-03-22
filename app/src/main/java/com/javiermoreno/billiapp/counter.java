@@ -178,6 +178,8 @@ public class counter extends Activity {
                     i.putExtra("finalactaJ1",ResultatJ1.getText().toString());
                     i.putExtra("promigactaJ1",PromigJ1.getText().toString());
                     i.putExtra("promigactaJ2",PromigJ2.getText().toString());
+                    i.putExtra("nomJ1",NomJ1.getText().toString());
+                    i.putExtra("nomJ2",NomJ2.getText().toString());
                     RegistrarPartida(idJ1,idJ2);
                     counter.this.startActivity(i);
 

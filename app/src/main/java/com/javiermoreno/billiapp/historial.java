@@ -7,34 +7,35 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class historial extends Activity {
+public  class historial extends Activity {
     private User u;
     private partit p;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<JSONObject> puntuacions;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.classificacio);
         p=new partit();
+        puntuacions=new ArrayList<JSONObject>();
         u=SharedPrefManager.getInstance(getApplicationContext()).getUser();
         String id=u.getId();
         ObtenirPartides(id);
-        /*
-        recyclerView = (RecyclerView) findViewById(R.id.punts);
+        recyclerView = (RecyclerView) findViewById(R.id.historiapartides);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         // specify an adapter (see also next example)
-        // mAdapter = new MyAdapter(puntuacions);
-        recyclerView.setAdapter(mAdapter);
-        */
+
     }
 
     void ObtenirPartides(String id){
@@ -68,8 +69,13 @@ public class historial extends Activity {
 
                     //if no error in response
                     if (!obj.getBoolean("error")) {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        int a=9;
+                        JSONArray partits=obj.getJSONArray("user");
+                        for (int i = 0; i < partits.length(); ++i) {
+                            JSONObject rec = partits.getJSONObject(i);
+                            puntuacions.add(rec);
+                        }
+                        mAdapter = new historialadapter(puntuacions,getApplicationContext());
+                        recyclerView.setAdapter(mAdapter);
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }

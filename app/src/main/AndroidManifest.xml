@@ -19,6 +19,7 @@
         <activity android:name=".canviusuari"/>
         <activity android:name=".counter"/>
         <activity android:name=".canvicontra"/>
+        <activity android:name=".actaHistorial"/>
         <activity android:name=".acta"/>
         <meta-data android:name="android.support.VERSION" android:value="26.0.0"/>
         <meta-data android:name="android.arch.lifecycle.VERSION" android:value="27.0.0-SNAPSHOT"/>
