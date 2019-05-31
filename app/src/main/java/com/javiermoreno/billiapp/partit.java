@@ -1,27 +1,101 @@
 package com.javiermoreno.billiapp;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import static java.sql.Types.NULL;
 
-public class partit  {
+public class partit  implements Parcelable {
 
-    private String Competicio,Modalitat,Arbit,J1Nom,J2Nom;
-    private int Jornada,PuntuacioFinalJ1,PuntuacioFinalJ2,PromigJ1,PromigJ2,lliga,idJ1,idJ2;
+    private String Arbit,J1Nom,J2Nom,data;
+    private int PuntuacioFinalJ1,PuntuacioFinalJ2,idJ1,idJ2,idCompeticio;
+    private double PromigJ1,PromigJ2;
     private ArrayList<String> ParcialJ1,ParcialJ2,FinalJ1,FinalJ2;
 
 
-    public void setCompeticio(String competicio) {
-        Competicio = competicio;
+    protected partit(Parcel in) {
+        Arbit = in.readString();
+        J1Nom = in.readString();
+        J2Nom = in.readString();
+        PuntuacioFinalJ1 = in.readInt();
+        PuntuacioFinalJ2 = in.readInt();
+        PromigJ1 = in.readDouble();
+        PromigJ2 = in.readDouble();
+        idJ1 = in.readInt();
+        idJ2 = in.readInt();
+        data= in.readString();
+        ParcialJ1 = in.createStringArrayList();
+        ParcialJ2 = in.createStringArrayList();
+        FinalJ1 = in.createStringArrayList();
+        FinalJ2 = in.createStringArrayList();
+        idCompeticio= in.readInt();
     }
 
-    public int getLliga() {
-        return lliga;
+    public static final Creator<partit> CREATOR = new Creator<partit>() {
+        @Override
+        public partit createFromParcel(Parcel in) {
+            return new partit(in);
+        }
+
+        @Override
+        public partit[] newArray(int size) {
+            return new partit[size];
+        }
+    };
+
+    public void setCompeticio(int competicio) {
+        idCompeticio = competicio;
     }
+
 
     public partit() {
 
+        ParcialJ1= new ArrayList <String> ();
+        ParcialJ2 = new ArrayList <String>();
+        FinalJ1= new ArrayList <String>();
+        FinalJ2= new ArrayList <String>();
+    }
+
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setParcialJ1(String parcialJ1) {
+        for(int i=0;i<parcialJ1.length()-1;i=i+2){
+            if(parcialJ1.substring(i,i+2)!=null) {
+                ParcialJ1.add(parcialJ1.substring(i, i + 2));
+            }
+
+        }
+    }
+
+    public void setParcialJ2(String parcialJ2) {
+        for(int i=0;i<parcialJ2.length()-1;i=i+2){
+            if(parcialJ2.substring(i,i+2)!=null) {
+                ParcialJ2.add(parcialJ2.substring(i, i + 2));
+            }
+        }
+    }
+
+    public void setFinalJ1(String finalJ1) {
+        for(int i=0;i<finalJ1.length()-1;i=i+2){
+            if(finalJ1.substring(i,i+2)!=null) {
+                FinalJ1.add(finalJ1.substring(i, i + 2));
+            }
+        }
+    }
+
+    public void setFinalJ2(String finalJ2) {
+        for(int i=0;i<finalJ2.length()-1;i=i+2){
+            if(finalJ2.substring(i,i+2)!=null) {
+                FinalJ2.add(finalJ2.substring(i, i + 2));
+            }
+        }
     }
 
     public void setIdJ1(int idJ1) {
@@ -32,30 +106,10 @@ public class partit  {
         this.idJ2 = idJ2;
     }
 
-    public partit(int puntuacioFinalJ1, int puntuacioFinalJ2, int promigJ1, int promigJ2, int idJ1, int idJ2, ArrayList<String> parcialJ1, ArrayList<String> parcialJ2, ArrayList<String> finalJ1, ArrayList<String> finalJ2) {
-        PuntuacioFinalJ1 = puntuacioFinalJ1;
-        PuntuacioFinalJ2 = puntuacioFinalJ2;
-        PromigJ1 = promigJ1;
-        PromigJ2 = promigJ2;
-        this.idJ1 = idJ1;
-        this.idJ2 = idJ2;
-        ParcialJ1 = parcialJ1;
-        ParcialJ2 = parcialJ2;
-        FinalJ1 = finalJ1;
-        FinalJ2 = finalJ2;
+    public int getIdCompeticio() {
+        return idCompeticio;
     }
 
-    public void setLliga(int lliga) {
-        this.lliga = lliga;
-    }
-
-    public void setModalitat(String modalitat) {
-        Modalitat = modalitat;
-    }
-
-    public void setArbit(String arbit) {
-        Arbit = arbit;
-    }
 
     public void setJ1Nom(String j1Nom) {
         J1Nom = j1Nom;
@@ -65,9 +119,6 @@ public class partit  {
         J2Nom = j2Nom;
     }
 
-    public void setJornada(int jornada) {
-        Jornada = jornada;
-    }
 
     public void setPuntuacioFinalJ1(int puntuacioFinalJ1) {
         PuntuacioFinalJ1 = puntuacioFinalJ1;
@@ -77,21 +128,15 @@ public class partit  {
         PuntuacioFinalJ2 = puntuacioFinalJ2;
     }
 
-    public void setPromigJ1(int promigJ1) {
+    public void setPromigJ1(double promigJ1) {
         PromigJ1 = promigJ1;
     }
 
-    public void setPromigJ2(int promigJ2) {
+    public void setPromigJ2(double promigJ2) {
         PromigJ2 = promigJ2;
     }
 
-    public String getCompeticio() {
-        return Competicio;
-    }
 
-    public String getModalitat() {
-        return Modalitat;
-    }
 
     public int getPuntuacioFinalJ1() {
         return PuntuacioFinalJ1;
@@ -101,11 +146,11 @@ public class partit  {
         return PuntuacioFinalJ2;
     }
 
-    public int getPromigJ1() {
+    public double getPromigJ1() {
         return PromigJ1;
     }
 
-    public int getPromigJ2() {
+    public double getPromigJ2() {
         return PromigJ2;
     }
 
@@ -121,24 +166,8 @@ public class partit  {
         return J2Nom;
     }
 
-    public int getJornada() {
-        return Jornada;
-    }
 
-    public partit(String Competicio, String Modalitat, String Arbit, String J1Nom, String J2Nom, int Jornada) {
 
-        this.Competicio=Competicio;
-        this.Modalitat=Modalitat;
-        this.Arbit=Arbit;
-        this.J1Nom=J1Nom;
-        this.J2Nom=J2Nom;
-        this.Jornada=Jornada;
-        this.ParcialJ1= new ArrayList <String>();
-        this.ParcialJ2= new ArrayList <String>();
-        this.FinalJ1= new ArrayList <String>();
-        this.FinalJ2= new ArrayList <String>();
-
-    }
 
     public ArrayList<String> getParcialJ1() {
         return ParcialJ1;
@@ -146,6 +175,10 @@ public class partit  {
 
     public ArrayList<String> getParcialJ2() {
         return ParcialJ2;
+    }
+
+    public String getData() {
+        return data;
     }
 
     public ArrayList<String> getFinalJ1() {
@@ -156,14 +189,23 @@ public class partit  {
         return FinalJ2;
     }
 
+    void netejarpuntuacions(){
+
+        ParcialJ1.clear();
+        ParcialJ2.clear();
+        FinalJ1.clear();
+        FinalJ2.clear();
+        PromigJ1=0;
+        PromigJ2=0;
+        PuntuacioFinalJ1=0;
+        PuntuacioFinalJ2=0;
+
+    }
     public partit(String J1Nom, String J2Nom ){
 
-        this.Competicio="";
-        this.Modalitat="";
         this.Arbit="";
         this.J1Nom=J1Nom;
         this.J2Nom=J2Nom;
-        this.Jornada=NULL;
         this.ParcialJ1= new ArrayList <String>();
         this.ParcialJ2= new ArrayList <String>();
         this.FinalJ1= new ArrayList <String>();
@@ -192,6 +234,39 @@ public class partit  {
 
     }
 
+    public partit(int idCompeticio,String arbit,String data) {
+        this.Arbit=arbit;
+        this.idCompeticio = idCompeticio;
+        this.data=data;
+        this.ParcialJ1= new ArrayList <String>();
+        this.ParcialJ2= new ArrayList <String>();
+        this.FinalJ1= new ArrayList <String>();
+        this.FinalJ2= new ArrayList <String>();
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Arbit);
+        dest.writeString(J1Nom);
+        dest.writeString(J2Nom);
+        dest.writeInt(PuntuacioFinalJ1);
+        dest.writeInt(PuntuacioFinalJ2);
+        dest.writeDouble(PromigJ1);
+        dest.writeDouble(PromigJ2);
+        dest.writeInt(idJ1);
+        dest.writeInt(idJ2);
+        dest.writeString(data);
+        dest.writeStringList(ParcialJ1);
+        dest.writeStringList(ParcialJ2);
+        dest.writeStringList(FinalJ1);
+        dest.writeStringList(FinalJ2);
+        dest.writeInt(idCompeticio);
+    }
 }
 

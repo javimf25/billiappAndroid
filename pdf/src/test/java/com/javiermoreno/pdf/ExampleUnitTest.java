@@ -1,4 +1,4 @@
-package com.javiermoreno.billiapp;
+package com.javiermoreno.pdf;
 
 import org.junit.Test;
 

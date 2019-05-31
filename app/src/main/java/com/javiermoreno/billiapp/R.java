@@ -935,6 +935,8 @@ public final class R {
         public static final int app_name = 2131427359;
         public static final int search_menu_title = 2131427360;
         public static final int status_bar_notification_info_overflow = 2131427361;
+        public static final int gen_please_wait = 2131427362;
+        public static final int gen_pdf_file = 2131427363;
     }
 
     public static final class style {

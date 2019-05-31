@@ -50,10 +50,11 @@ public class partidaRapida extends Activity {
 
                 String Tipus=new String();
                 Tipus="rapida";
-                i.putExtra("Tipus",Tipus);
+                i.putExtra("tipus",Tipus);
                 i.putExtra("J1",SharedPrefManager.getInstance(getApplicationContext()).getUser().getUsername());
                 i.putExtra("J2",e2.getText().toString());
                 startActivity(i);
+                finish();
 
 
             }

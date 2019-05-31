@@ -130,6 +130,7 @@ public class MainActivity extends Activity {
                         Intent i = new Intent(MainActivity.this, menu.class);
                         i.putExtra("guest",guest);
                         startActivity(i);
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }

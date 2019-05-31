@@ -26,14 +26,13 @@ public class menu extends Activity {
         this.b2 = findViewById(R.id.campionat);
         this.b3 = findViewById(R.id.historial);
         this.b4 = findViewById(R.id.opcions);
-        this.b5 = findViewById(R.id.clasificacio);
+        this.b5=findViewById(R.id.clasificacio);
         this.b6 = findViewById(R.id.logout);
         if (Guest == true) {
 
             b2.setVisibility(View.INVISIBLE);
             b3.setVisibility(View.INVISIBLE);
             b4.setVisibility(View.INVISIBLE);
-            b5.setVisibility(View.INVISIBLE);
             b2.setText("Tornar al login");
             this.b1.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -55,6 +54,7 @@ public class menu extends Activity {
                     Intent i = new Intent(menu.this, partidaRapida.class);
                     i.putExtra("guest",Guest);
                     menu.this.startActivity(i);
+                    finish();
                 }
             });
             this.b2.setOnClickListener(new OnClickListener() {
@@ -75,6 +75,17 @@ public class menu extends Activity {
             this.b5.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     menu.this.startActivity(new Intent(menu.this, classificacio.class));
+                }
+            });
+            this.b6.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    Intent i = new Intent(menu.this, MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("EXIT", true);
+                    startActivity(i);
+                    finish();
                 }
             });
 

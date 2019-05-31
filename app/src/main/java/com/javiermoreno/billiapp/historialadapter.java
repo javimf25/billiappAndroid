@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public  class historialadapter extends RecyclerView.Adapter<historialadapter.MyViewHolder> {
-    private ArrayList<JSONObject>  mDataset;
+    static ArrayList<partit>  mDataset;
     public String ParcialsJ1,ParcialsJ2,FinalsJ1,FinalsJ2;
     private  Context con;
     // Provide a reference to the views for each data item
@@ -42,16 +42,13 @@ public  class historialadapter extends RecyclerView.Adapter<historialadapter.MyV
                 public void onClick(View v) {
 
                     Intent i = new Intent (v.getContext(), actaHistorial.class);
-                    i.putExtra("nomJ1",NomJugador1.getText().toString());
-                    i.putExtra("nomJ2",NomJugador2.getText().toString());
-                    i.putExtra("parcialJ1",ParcialsJ1.getText().toString());
-                    i.putExtra("parcialJ2",ParcialsJ2.getText().toString());
-                    i.putExtra("finalJ1",FinalsJ1.getText().toString());
-                    i.putExtra("finalJ2",FinalsJ2.getText().toString());
-                    i.putExtra("finalactaJ2",PuntsFinalsJ1.getText().toString());
-                    i.putExtra("finalactaJ1",PuntsFinalsJ2.getText().toString());
-                    i.putExtra("promigactaJ1",PromigJ1.getText().toString());
-                    i.putExtra("promigactaJ2",PromigJ2.getText().toString());
+                    i.putExtra("partit",mDataset.get(getAdapterPosition()));
+                    if(mDataset.get(getAdapterPosition()).getIdCompeticio()==0){
+                        i.putExtra("tipus","partidarapida");
+                    }
+                    else {i.putExtra("tipus","campionat");
+                        i.putExtra("campionatid",mDataset.get(getAdapterPosition()).getIdCompeticio());
+                    }
                     v.getContext().startActivity(i);
 
                 }
@@ -60,7 +57,7 @@ public  class historialadapter extends RecyclerView.Adapter<historialadapter.MyV
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public historialadapter(ArrayList<JSONObject> myDataset, Context context) {
+    public historialadapter(ArrayList<partit> myDataset, Context context) {
         mDataset = myDataset;
         con=context;
     }
@@ -78,33 +75,14 @@ public  class historialadapter extends RecyclerView.Adapter<historialadapter.MyV
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String n1,n2,p1,p2,f1,f2,Par1,Par2,Fi1,Fi2;
 
+        holder.NomJugador1.setText(mDataset.get(position).getJ1Nom());
+        holder.NomJugador2.setText(mDataset.get(position).getJ2Nom());
+        holder.PromigJ1.setText(String.valueOf(mDataset.get(position).getPromigJ1()));
+        holder.PromigJ2.setText(String.valueOf(mDataset.get(position).getPromigJ2()));
+        holder.PuntsFinalsJ1.setText(String.valueOf(mDataset.get(position).getPuntuacioFinalJ1()));
+        holder.PuntsFinalsJ2.setText(String.valueOf(mDataset.get(position).getPuntuacioFinalJ2()));
 
-        try {
-            p1=mDataset.get(position).getString("PromigJ1");
-            p2=mDataset.get(position).getString("PromigJ2");
-            f1=mDataset.get(position).getString("PuntuacioFinalJ1");
-            f2=mDataset.get(position).getString("PuntuacioFinalJ2");
-            n1=mDataset.get(position).getString("nomjugador1");
-            n2=mDataset.get(position).getString("nomjugador2");
-            Par1=mDataset.get(position).getString("parcialsJ1");
-            Par2=mDataset.get(position).getString("parcialsJ2");
-            Fi1=mDataset.get(position).getString("PuntsJugadorFinal1");
-            Fi2=mDataset.get(position).getString("PuntsJugadorFinal2");
-            holder.NomJugador1.setText(n1);
-            holder.NomJugador2.setText(n2);
-            holder.PuntsFinalsJ1.setText(f1);
-            holder.PuntsFinalsJ2.setText(f2);
-            holder.PromigJ1.setText(p1);
-            holder.PromigJ2.setText(p2);
-            holder.ParcialsJ1.setText(Par1);
-            holder.ParcialsJ2.setText(Par2);
-            holder.FinalsJ1.setText(Fi1);
-            holder.FinalsJ2.setText(Fi2);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
 

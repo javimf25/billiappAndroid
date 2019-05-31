@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:background="#ADD8E6"
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
@@ -43,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/confirmarusuari"
+            android:background="#87CEFA"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="40dp"
             android:layout_marginStart="16dp"
             app:layout_constraintTop_toBottomOf="@+id/Usuariantic"/>
@@ -50,6 +52,7 @@
             android:text="Cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#87CEFA"
             android:id="@+id/tornar2" android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/Usuariantic" android:layout_marginEnd="35dp"
             app:layout_constraintEnd_toEndOf="parent"/>
